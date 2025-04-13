@@ -1,0 +1,67 @@
+---
+title: "Dashboard: Previs\u00e3o da Taxa de Desocupa\u00e7\u00e3o"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll
+runtime: shiny
+---
+
+```{r global, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+Column {.sidebar data-width=310}
+-------------------------------------
+
+#### **Modelo de Previsão da Taxa de Desocupação**
+A presente aplicação apresenta os resultados de um modelo de previsão macroeconômica para a **Taxa de Desocupação da Economia Brasileira**, com base nos dados da PNAD Contínua Mensal, divulgada pelo IBGE. Foi estimado um Modelo Vetorial de Correção de Erros (VECM), por meio da linguagem `R`.
+
+**Sobre o workflow**:
+
+1) Coleta, tratamento e organização dos dados
+2) Realização dOS testes de estacionariedade e cointegração
+3) Modelagem e previsão
+4) Avaliação da acurácia preditiva e comparação com benchmarks
+5) Visualização dos resultados
+
+
+**Última atualização**: `r format(Sys.Date(), "%d de %B de %Y")`.
+
+
+Column
+-----------------------------------------------------------------------
+
+### Previsao {.no-title}
+
+```{r}
+# Histórico e previsão
+shiny::renderPlot(plt_previsao)
+```
+
+### Historico do Modelo {.no-title}
+
+```{r}
+# Performance ultimos 12 meses
+shiny::renderPlot(grafico_teste)
+```
+
+
+Column {data-width=350}
+-------------------------------------
+
+### Forecast points {.no-title}
+
+```{r points}
+# Tabela com forecast point
+tbl_previsao
+```
+
+### Performance {.no-title}
+
+```{r perf}
+# Models accuracy results
+benchmark_modelos
+```
+
+
